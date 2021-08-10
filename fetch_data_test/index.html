@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    
+    <script>
+    
+        let url1 = "http://ecologger.eng.br/fetch_data_test/data_array.php";
+        //let url1 = "http://ecologger.eng.br/new_filter/data.php?nome=cliente";
+         
+        $(document).ready(function () {
+            spamInfo();
+        });
+        
+        function spamInfo()
+            {
+                
+                    
+                    $.get(url1,
+                    function (data)
+                    {
+                        //console.log(data);
+                        var wca = [];
+                        var ener = [];
+                        var nps = [];
+                        var pvar = [];
+                        var wcc = [];
+                        var wrn1 = [];
+                        var wrn2 = [];
+                        var wrn3 = [];
+                        var temp = [];
+                        var fp = [];
+                        var vab = [];
+                        var vbc = [];
+                        var vca = [];
+                        var ia = [];
+                        var ib = [];
+                        var ic = [];
+                        var va = [];
+                        var vb = [];
+                        var vc = [];
+                        var freq = [];
+                        for (var i in data) {
+                            ener.push(data[i].ener);
+                           // console.log(ener);
+                            wca.push(data[i].wca);
+                            nps.push(data[i].nps);
+                            pvar.push(data[i].pvar);
+                            wcc.push(data[i].wcc);
+                            wrn1.push(data[i].wrn1);
+                            wrn2.push(data[i].wrn2);
+                            wrn3.push(data[i].wrn3);
+                            temp.push(data[i].temp);
+                            fp.push(data[i].fp);
+                            vab.push(data[i].vab); 
+                            vbc.push(data[i].vbc);
+                            vca.push(data[i].vca);
+                            ia.push(data[i].ia);
+                            ib.push(data[i].ib);
+                            ic.push(data[i].ic);
+                            va.push(data[i].va);
+                            vb.push(data[i].vb);
+                            vc.push(data[i].vc);
+                            freq.push(data[i].freq);
+                                                       // console.log(wca);
+                        }
+                        document.getElementById("ener").innerHTML = ener.join("");
+                        document.getElementById("wca").innerHTML = wca.join("");
+                        document.getElementById("nps").innerHTML = nps.join("");
+                        document.getElementById("pvar").innerHTML = pvar.join("");
+                        document.getElementById("wcc").innerHTML = wcc.join("");
+                        document.getElementById("wrn1").innerHTML = wrn1.join("");
+                        document.getElementById("wrn2").innerHTML = wrn2.join("");
+                        document.getElementById("wrn3").innerHTML = wrn3.join("");
+                        document.getElementById("temp").innerHTML = temp.join("");
+                        document.getElementById("fp").innerHTML = fp.join("");
+                        document.getElementById("vab").innerHTML = vab.join("");
+                        document.getElementById("vbc").innerHTML = vbc.join("");
+                        document.getElementById("vca").innerHTML = vca.join("");
+                        document.getElementById("ia").innerHTML = ia.join("");
+                        document.getElementById("ib").innerHTML = ib.join("");
+                        document.getElementById("ic").innerHTML = ic.join("");
+                        document.getElementById("va").innerHTML = va.join("");
+                        document.getElementById("vb").innerHTML = vb.join("");
+                        document.getElementById("vc").innerHTML = vc.join("");
+                        document.getElementById("freq").innerHTML = freq.join("");
+                        
+                        
+                    });
+                
+            }
+        
+    </script>
+</head>
+<body >
+    <h1>teste</h1>
+    
+        <p>Energia (Ener) :  <span id="ener"></span></p>
+        <p>Potência Ativa (W_CA) :  <span id="wca"></span></p>  
+        <p>Número de strings (N_ps):  <span id="nps"></span></p>
+        <p>Potência Reativa (PVar):  <span id="pvar"></span></p>
+        <p>Potência CC (Wcc):  <span id="wcc"></span></p>
+        <p>Alerta 1 (Wrn1) :  <span id="wrn1"></span></p>
+        <p>Alerta 2 (Wrn2) :  <span id="wrn2"></span></p>
+        <p>Alerta 3 (Wrn3) :  <span id="wrn3"></span></p>
+        <p>Temperatura (Temp) :  <span id="temp"></span></p>
+        <p>Fator de Potência (FP):  <span id="fp"></span></p>
+        <p>Tensão de Linha AB (V_AB) :  <span id="vab"></span></p>
+        <p>Tensão de Linha BC (V_BC) :  <span id="vbc"></span></p>
+        <p>Tensão de Linha CA (V_CA) :  <span id="vca"></span></p>
+        <p>Corrente de Fase A (I_A) :  <span id="ia"></span></p>
+        <p>Corrente de Fase B (I_B) :  <span id="ib"></span></p>
+        <p>Corrente de Fase C (I_C) :  <span id="ic"></span></p>
+        <p>Tensão de Fase A (V_A) :  <span id="va"></span></p>
+        <p>Tensão de Fase B (V_B) :  <span id="vb"></span></p>
+        <p>Tensão de Fase C (V_C) :  <span id="vc"></span></p>
+        <p>Frequência (Freq) :  <span id="freq"></span></p>
+    
+    
+</body>
+</html>

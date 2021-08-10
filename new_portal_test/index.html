@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/chart.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <meta http-equiv="refresh" content="21">
+        <title>EcoLogger Interface de Gerenciamento Web</title>
+
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --> 
+<script>
+    
+    let url1 = "http://ecologger.eng.br/fetch_data_test/data_array.php";
+    //let url1 = "http://ecologger.eng.br/new_filter/data.php?nome=cliente";
+     
+    $(document).ready(function () {
+        spamInfo();
+    });
+    
+    function spamInfo()
+        {
+            
+                
+                $.get(url1,
+                function (data)
+                {
+                    //console.log(data);
+                    var wca = [];
+                    var ener = [];
+                    //var nps = [];
+                    var pvar = [];
+                    var wcc = [];
+                    var wrn1 = [];
+                    //var wrn2 = [];
+                    //var wrn3 = [];
+                    var temp = [];
+                    //var fp = [];
+                    //var vab = [];
+                    //var vbc = [];
+                    //var vca = [];
+                    //var ia = [];
+                    //var ib = [];
+                    //var ic = [];
+                    //var va = [];
+                    //var vb = [];
+                    //var vc = [];
+                    //var freq = [];
+                    for (var i in data) {
+                        ener.push(data[i].ener);
+                       // console.log(ener);
+                        wca.push(data[i].wca);
+                        //nps.push(data[i].nps);
+                        pvar.push(data[i].pvar);
+                        wcc.push(data[i].wcc);
+                        wrn1.push(data[i].wrn1);
+                        //wrn2.push(data[i].wrn2);
+                        //wrn3.push(data[i].wrn3);
+                        temp.push(data[i].temp);
+                        //fp.push(data[i].fp);
+                        //vab.push(data[i].vab); 
+                        //vbc.push(data[i].vbc);
+                        //vca.push(data[i].vca);
+                        //ia.push(data[i].ia);
+                        //ib.push(data[i].ib);
+                        //ic.push(data[i].ic);
+                        //va.push(data[i].va);
+                        //vb.push(data[i].vb);
+                        //vc.push(data[i].vc);
+                        //freq.push(data[i].freq);
+                                                   // console.log(wca);
+                    }
+                    document.getElementById("ener").innerHTML = ener.join("");
+                    document.getElementById("wca").innerHTML = wca.join("");
+                    //document.getElementById("nps").innerHTML = nps.join("");
+                    document.getElementById("pvar").innerHTML = pvar.join("");
+                    document.getElementById("wcc").innerHTML = wcc.join("");
+                    document.getElementById("wrn1").innerHTML = wrn1.join("");
+                    //document.getElementById("wrn2").innerHTML = wrn2.join("");
+                    //document.getElementById("wrn3").innerHTML = wrn3.join("");
+                    document.getElementById("temp").innerHTML = temp.join("");
+                    //document.getElementById("fp").innerHTML = fp.join("");
+                    //document.getElementById("vab").innerHTML = vab.join("");
+                    //document.getElementById("vbc").innerHTML = vbc.join("");
+                    //document.getElementById("vca").innerHTML = vca.join("");
+                    //document.getElementById("ia").innerHTML = ia.join("");
+                    //document.getElementById("ib").innerHTML = ib.join("");
+                    //document.getElementById("ic").innerHTML = ic.join("");
+                    //document.getElementById("va").innerHTML = va.join("");
+                    //document.getElementById("vb").innerHTML = vb.join("");
+                    //document.getElementById("vc").innerHTML = vc.join("");
+                    //document.getElementById("freq").innerHTML = freq.join("");
+                    
+                    
+                });
+            
+        }
+    
+</script>
+
+
+
+
+
+    </head>
+    <body>
+        <nav>
+            <a href="#">Interface Web de Gerenciamento</a>
+            <ul>
+                
+                <li>
+                    <a href="#dados">Dados</a>
+                </li>
+                <li>
+                    <a href="#grafico">Gráfico</a>
+                </li>
+
+                <li>
+                    <a href="http://ecologger.eng.br/read_loop.php">Histórico em Tabela</a>
+                </li>
+               
+            </ul>
+        </nav>
+
+        <header id="topo">
+            <h1>Ecologger</h1>
+            <p>Módulo de Gerenciamento</p>
+        </header>
+
+
+        <section id="dados">
+            <h2>Dados</h2>
+            <div>
+                <img src="img/home.svg" alt="Unidades Instaladas" width="46" height="46">
+                <h3>Unidades Instaladas</h3>
+                <p>Função a fazer</p>
+            </div>
+
+            <div>
+                <img src="img/monitor.svg" alt="Potencia Instalada" width="46" height="46">
+                <h3>Potência Instalada</h3>
+                <p>Função a fazer</p>
+            </div>
+
+            <div>
+                <img src="img/medidor.svg" alt="Potencia Instantanea" width="46" height="46">
+                <h3>Potência Ativa</h3>
+                <p><span id="wca"></span> KW</p>
+            </div>
+
+            <div>
+                <img src="img/energia.svg" alt="Energia Total" width="46" height="46">
+                <h3>Energia Gerada</h3>
+                <p><span id="ener"></span> KWH</p>
+            </div>
+
+            <div>
+                <img src="img/ImagEco.png" alt="Potencia Reativa" width="46" height="46">
+                <h3>Potência Reativa</h3>
+                <p><span id="pvar"></span> KVA</p>
+            </div>
+
+            <div>
+                <img src="img/ImagEco.png" alt="Alarmes" width="46" height="46">
+                <h3>Avisos (Alarmes/Faltas)</h3>
+                <p><span id="wrn1"></span></p>
+            </div>
+
+            <div>
+                <img src="img/ImagEco.png" alt="Potencia CC" width="46" height="46">
+                <h3>Potência Corrente Contínua</h3>
+                <p><span id="wcc"></span> KW</p>
+            </div>
+
+            <div>
+                <img src="img/ImagEco.png" alt="Temperatura do Inversor" width="46" height="46">
+                <h3>Temperatura do Inversor</h3>
+                <p><span id="temp"></span> °C</p>
+            </div>
+
+        </section>
+
+        <section id="grafico">
+            <h2>Gráfico</h2>
+            <div class="cgrafico">
+            <form name="myForm" method="post" onsubmit="return savedata()">
+                <input type="text" name="nome" id="url1" placeholder="Id Cliente"/>
+                <input type="date" name="data_inicial" id="dt1" placeholder="Start Date"/>
+                <input type="date" name="data_final" id="dt2" placeholder="Final Date"/>
+                <input type="submit" id="update" class="btn-warning" name="submit" value="Modificar" />
+            </form>
+              <div class="card border graph_final">
+                <div id="chart-container">
+                  <canvas id="graphteste"></canvas>
+              </div>
+          <script>
+              
+              function savedata() { 
+                  var data = document.getElementById("dt1");
+                  var data2 = document.getElementById("dt2");
+                  var input = document.getElementById("url1");
+                  
+                  console.log( document.getElementById("dt1").value);
+                  console.log( document.getElementById("dt2").value);
+                  sessionStorage.setItem("url1", input.value);
+                  sessionStorage.setItem("dt1", data.value);
+                  sessionStorage.setItem("dt2", data2.value);
+                  return true;
+              }
+              let url2 = "http://ecologger.eng.br/new_portal_test/data.php?nome=" + sessionStorage.getItem("url1") + "&data_inicial=" + sessionStorage.getItem("dt1") + "&data_final=" + sessionStorage.getItem("dt2");
+              //let url1 = "http://ecologger.eng.br/new_filter/data.php?nome=cliente";
+              console.log( url2.value);
+               $(document).ready(function () {
+                      createGraph();
+                  });
+                  
+                  function createGraph()
+                  {
+                      {
+                          
+                          $.get(url2,
+                          function (data)
+                          {
+                              console.log(data);
+                              var id = [];
+                              var ener = [];
+          
+                              for (var i in data) {
+                                  id.push(data[i].DATE);
+                                  ener.push(data[i].totalEner);
+                              }
+                              var dados = {
+                                  labels: id,
+                                  datasets: [
+                                      {
+                                          label: 'Energia',
+                                          backgroundColor: '#3DDC97',
+                                          borderColor: '#46d5f1',
+                                          hoverBackgroundColor: '#CCCCCC',
+                                          hoverBorderColor: '#666666',
+                                          data: ener
+                                      }
+                                  ]
+                              };
+          
+                              var gTarget = $("#graphteste");
+                              var barGraph = new Chart(gTarget, {
+                                  type: 'bar',
+                                  data: dados
+                              });
+                          });
+                      }
+                  }
+          </script>
+          </div>
+        </section>
+
+        <footer>
+            <a href="#topo">VOLTAR</a>
+        </footer>
+
+    </body>
+</html>

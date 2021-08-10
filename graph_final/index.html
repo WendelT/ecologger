@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/chart.min.js"></script>
+   
+    <title>Teste de Gráfico</title>
+    <style type="text/css">
+    BODY {
+        width: 750PX;
+    }
+
+    #chart-container {
+        width: 100%;
+        height: auto;
+    }
+</style>
+<form name="myForm" method="post" onsubmit="return savedata()">
+    <input type="text" name="nome" id="url1" placeholder="Id Cliente"/>
+    <input type="date" name="data_inicial" id="dt1" placeholder="Start Date"/>
+    <input type="date" name="data_final" id="dt2" placeholder="Final Date"/>
+    <input type="submit" id="update" name="submit" value="Modificar" />
+</form>
+<script>
+    
+
+
+    
+</script>
+</head>
+<body>
+    <h1>teste</h1>
+    <div id="chart-container">
+        <canvas id="graphteste"></canvas>
+    </div>
+<script>
+    
+    function savedata() { 
+        var data = document.getElementById("dt1");
+        var data2 = document.getElementById("dt2");
+        var input = document.getElementById("url1");
+        
+        console.log( document.getElementById("dt1").value);
+        console.log( document.getElementById("dt2").value);
+        sessionStorage.setItem("url1", input.value);
+        sessionStorage.setItem("dt1", data.value);
+        sessionStorage.setItem("dt2", data2.value);
+        return true;
+    }
+    let url1 = "http://ecologger.eng.br/graph_final/data.php?nome=" + sessionStorage.getItem("url1") + "&data_inicial=" + sessionStorage.getItem("dt1") + "&data_final=" + sessionStorage.getItem("dt2");
+    //let url1 = "http://ecologger.eng.br/new_filter/data.php?nome=cliente";
+    console.log( url1.value);
+     $(document).ready(function () {
+            createGraph();
+        });
+        
+        function createGraph()
+        {
+            {
+                
+                $.get(url1,
+                function (data)
+                {
+                    console.log(data);
+                    var id = [];
+                    var ener = [];
+
+                    for (var i in data) {
+                        id.push(data[i].DATE);
+                        ener.push(data[i].totalEner);
+                    }
+                    var dados = {
+                        labels: id,
+                        datasets: [
+                            {
+                                label: 'Energia',
+                                backgroundColor: '#3DDC97',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: ener
+                            }
+                        ]
+                    };
+
+                    var gTarget = $("#graphteste");
+                    var barGraph = new Chart(gTarget, {
+                        type: 'bar',
+                        data: dados
+                    });
+                });
+            }
+        }
+</script>
+   
+
+</body>
+</html>

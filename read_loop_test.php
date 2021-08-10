@@ -309,17 +309,17 @@
                     </th>
 
                     <th>
-                        Alerta 1
+                        Wrn1
                     </th>
                     <th>
-                        Alerta 2
+                        Wrn2
                     </th>
 
                     <th>
-                        Alerta 3
+                        Wrn3
                     </th>
                     <th>
-                        Potência Corrente Contínua
+                        W_CC
                     </th>
 
                     <th>

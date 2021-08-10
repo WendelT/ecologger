@@ -22,27 +22,29 @@
                 height="132">
             <form class="order2" name="myForm" method="post">
                 <?php 
-        $host = "smartlogger.mysql.dbaas.com.br";		         // host = localhost because database hosted on the same server where PHP files are hosted
-        $dbname = "smartlogger";              // Database name
-        $username = "smartlogger";		// Database username
-        $password = "F@%KNcle#d0fUo";	        // Database password
-        $conn = new mysqli($host, $username, $password, $dbname);
-        
-        // Check if connection established successfully
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        else { echo "Módulo de coleta de dados<br>"; }
-        $sql1 = "SELECT id FROM tab_final ORDER BY id DESC LIMIT 1";
-
-        $result1 = mysqli_query($conn, $sql1) or die("<p color=\"#f00\"></p>");
-        
-        while($row1 = mysqli_fetch_assoc($result1)):
-    ?> <br>
-                <p1>Última quantidade de dados registrada:
-                    <?php echo $row1["id"]; ?>
-                </p1>
-                <?php endwhile; ?>
+         $host = "smartlogger.mysql.dbaas.com.br";		         // host = localhost because database hosted on the same server where PHP files are hosted
+         $dbname = "smartlogger";              // Database name
+         $username = "smartlogger";		// Database username
+         $password = "F@%KNcle#d0fUo";	        // Database password
+         $conn = new mysqli($host, $username, $password, $dbname);
+         
+         // Check if connection established successfully
+         if ($conn->connect_error) {
+             die("Connection failed: " . $conn->connect_error);
+         }
+         else { echo "Módulo de coleta de dados<br>"; }
+         $sql1 = "SELECT id, dados_list FROM tab_final ORDER BY id DESC LIMIT 1";
+ 
+         $result1 = mysqli_query($conn, $sql1) or die("<p color=\"#f00\"></p>");
+         
+         while($row1 = mysqli_fetch_assoc($result1)):
+         $D1 = $row1['dados_list'];
+         $DADOS1 = explode(",", $D1);
+     ?> <br>
+                 <p1>Última quantidade de dados registrada:
+                     <?php echo $row1["id"]; ?>
+                 </p1>
+                 <?php endwhile; ?>
         </div>
 
         <br>
@@ -100,29 +102,6 @@
 
                     </script>
 
-<?php
-        
-           
-            
-
-                
-                    
-        //$st = $_REQUEST["limite"];
-               
-                
-        include("request.php");
-        
-        
-        //$sql =  "SELECT id, value1, value3, value6, value9, value12, value15, value18, 
-        //value21, value24, value27, value30, value33, value36, value39, value42, value45, value48, value51, 
-        //value54, value57, value60, value63, value66, value69,value70, date, time FROM teste_tab1 ORDER BY id DESC LIMIT $st";
-
-        $result = mysqli_query($conn, $sql) or die("<p color=\"#f00\"></p>");
-        while($row = mysqli_fetch_assoc($result)):
-            $D = $row['dados_list'];
-            $DADOS = explode(",", $D)
-    ?>
-
                     <!--
         <th>ID</th>
         <th>CLIENTE</th>
@@ -151,286 +130,269 @@
         <th>Freq</th>
         <th>Data</th>
         <th>Hora</th>
+-->
 
-
-                    <th class="header">ID</th>
-                    <th>CLIENTE</th>
-                    <th> Energia <br>(kWh)</th>
-                    <th> Potência Ativa <br>(kW)</th>
-                    <th> Tensão Painel 1 <br>(V)</th>
-                    <th> Corrente Painel 1 <br>(A)</th>
-                    <th> Tensão Painel 2 <br>(V)</th>
-                    <th> Corrente Painel 2 <br>(A)</th>
-                    <th> Tensão Painel 3 <br>(V)</th>
-                    <th> Corrente Painel 3 <br>(A)</th>
-                    <th> Tensão Painel 4 <br>(V)</th>
-                    <th> Corrente Painel 4 <br>(A)</th>
-                    <th> Potência Reativa <br>(kVar)</th>
-                    <th> Temperatura <br>(C)</th>
-                    <th> Fator de Potência <br>(N/A)</th>
-                    <th> Tensão Linha AB <br>(V)</th>
-                    <th> Tensão Linha BC <br>(V)</th>
-                    <th> Tensão Linha CA <br>(V)</th>
-                    <th> Corrente Fase A <br>(A)</th>
-                    <th> Corrente Fase B <br>(A)</th>
-                    <th> Corrente Fase C <br>(A)</th>
-                    <th> Tensão Fase A <br>(V)</th>
-                    <th> Tensão Fase B <br>(V)</th>
-                    <th> Tensão Fase C <br>(V)</th>
-                    <th> Frequência <br>(Hz)</th>
-                    <th> Data </th>
-                    <th> Hora </th>
-
-                    -->
-
-
-                    <th class="header">ID</th>
+<th class="header">ID</th>
                     <th>CLIENTE</th>
                     <th>
-                        <?php echo $DADOS[0]; ?>
+                        Energia <br> (kWh)
                     </th>
                     <th>
-                        <?php echo $DADOS[3]; ?>
+                        Potência Ativa <br>(kW)
                     </th>
                     <th>
-                        <?php echo $DADOS[6]; ?>
+                        Tensão Painel 1 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[9]; ?>
+                        Corrente Painel 1 <br>(A)
                     </th>
                     <th>
-                        <?php echo $DADOS[12]; ?>
+                        Tensão Painel 2 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[15]; ?>
+                        Corrente Painel 2 <br>(A)
                     </th>
                     <th>
-                        <?php echo $DADOS[18]; ?>
+                        Tensão Painel 3 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[21]; ?>
+                        Corrente Painel 3 <br>(A)
                     </th>
                     <th>
-                        <?php echo $DADOS[24]; ?>
+                        Tensão Painel 4 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[27];//last ?>
-                    </th>
-
-                    <th>
-                        <?php echo $DADOS[30]; ?>
-                    </th>
-                    <th>
-                        <?php echo $DADOS[33]; ?>
+                        Corrente Painel 4 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[36]; ?>
+                        Tensão Painel 5 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[39]; ?>
+                        Corrente Painel 5 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[42]; ?>
+                        Tensão Painel 6 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[45]; ?>
+                        Corrente Painel 6 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[48]; ?>
+                        Tensão Painel 7 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[51]; ?>
+                        Corrente Painel 7 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[54]; ?>
+                        Tensão Painel 8 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[57]; ?>
+                        Corrente Painel 8 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[60]; ?>
+                        Tensão Painel 9 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[63]; ?>
+                        Corrente Painel 9 <br>(A)
+                    </th>
+                    <th>
+                        Tensão Painel 10 <br>(V)
+                    </th>
+                    <th>
+                        Corrente Painel 10 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[66]; ?>
+                        Tensão Painel 11 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[69]; ?>
+                        Corrente Painel 11 <br>(A)
+                    </th>
+                    <th>
+                        Tensão Painel 12 <br>(V)
+                    </th>
+                    <th>
+                        Corrente Painel 12 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[72]; ?>
+                        Tensão Painel 13 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[75]; ?>
+                        Corrente Painel 13 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[78]; ?>
+                        Tensão Painel 14 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[81]; ?>
+                        Corrente Painel 14 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[84]; ?>
+                        Tensão Painel 15 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[87]; ?>
+                        Corrente Painel 15 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[90]; ?>
+                        Tensão Painel 16 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[93]; ?>
+                        Corrente Painel 16 <br>(A)
+                    </th>
+                    <th>
+                        Tensão Painel 17 <br>(V)
+                    </th>
+                    <th>
+                        Corrente Painel 17 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[96]; ?>
+                        Tensão Painel 18 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[99]; ?>
+                        Corrente Painel 18 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[102]; ?>
+                        Tensão Painel 19 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[105]; ?>
+                        Corrente Painel 19 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[108]; ?>
+                        Tensão Painel 20 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[111]; ?>
+                        Corrente Painel 20 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[114]; ?>
+                        Tensão Painel 21 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[117]; ?>
+                        Corrente Painel 21 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[120]; ?>
+                        Tensão Painel 22 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[123]; ?>
+                        Corrente Painel 22 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[126]; ?>
+                        Tensão Painel 23 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[129]; ?>
+                        Corrente Painel 23 <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[132]; ?>
+                        Tensão Painel 24 <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[135]; ?>
+                        Corrente Painel 24 <br>(A)
+                    </th>
+                    <th>
+                        N_ps
+                    </th>
+                    <th>
+                        Potência Reativa <br>(kVar)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[138]; ?>
+                        Alerta 1
                     </th>
                     <th>
-                        <?php echo $DADOS[141]; ?>
+                        Alerta 2
                     </th>
 
                     <th>
-                        <?php echo $DADOS[144]; ?>
+                        Alerta 3
                     </th>
                     <th>
-                        <?php echo $DADOS[147]; ?>
+                        Potência Corrente Contínua
                     </th>
 
                     <th>
-                        <?php echo $DADOS[150]; ?>
+                        Temperatura <br>(C)
                     </th>
                     <th>
-                        <?php echo $DADOS[153]; ?>
+                        Fator de Potência <br>(N/A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[156]; ?>
+                        Tensão Linha AB <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[159]; ?>
+                        Tensão Linha BC <br>(V)
+                    </th>
+                    <th>
+                        Tensão Linha CA <br>(V)
+                    </th>
+                    <th>
+                        Corrente Fase A <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[162]; ?>
+                        Corrente Fase B <br>(A)
                     </th>
                     <th>
-                        <?php echo $DADOS[165]; ?>
+                        Corrente Fase C <br>(A)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[168]; ?>
+                        Tensão Fase A <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[171]; ?>
+                        Tensão Fase B <br>(V)
                     </th>
 
                     <th>
-                        <?php echo $DADOS[174]; ?>
+                        Tensão Fase C <br>(V)
                     </th>
                     <th>
-                        <?php echo $DADOS[177]; ?>
+                        Frequência <br>(Hz)
                     </th>
-
-                    <th>
-                        <?php echo $DADOS[180]; ?>
-                    </th>
-                    <th>
-                        <?php echo $DADOS[183]; ?>
-                    </th>
-
-                    <th>
-                        <?php echo $DADOS[186]; ?>
-                    </th>
-                    <th>
-                        <?php echo $DADOS[189]; ?>
-                    </th>
-
-                    <th>
-                        <?php echo $DADOS[192]; ?>
-                    </th>
-                    <th>
-                        <?php echo $DADOS[195]; ?>
-                    </th>
-
-                    <th>
-                        <?php echo $DADOS[198]; ?>
-                    </th>
-                    <th>
-                        <?php echo $DADOS[201]; ?>
-                    </th>
-
-
                     <th>Data Server</th>
                     <th>Hora Server</th>
                     <th>Data Log</th>
                     <th>Hora Log</th>
-
-
-
+                    
+                    
                 </thead>
                 <tbody>
+                    <?php
+        
+           
+            
 
+                
+                    
+            //$st = $_REQUEST["limite"];
+                   
+                    
+            include("request.php");
+
+
+//$sql =  "SELECT id, value1, value3, value6, value9, value12, value15, value18, 
+//value21, value24, value27, value30, value33, value36, value39, value42, value45, value48, value51, 
+//value54, value57, value60, value63, value66, value69,value70, date, time FROM teste_tab1 ORDER BY id DESC LIMIT $st";
+
+$result = mysqli_query($conn, $sql) or die("<p color=\"#f00\"></p>");
+while($row = mysqli_fetch_assoc($result)):
+    $D = $row['dados_list'];
+    $DADOS = explode(",", $D)
+
+        ?>
                     <tr>
                         <td>
                             <?php echo $row["id"]; ?>
@@ -510,7 +472,6 @@
                         <td>
                             <?php echo $DADOS[70]; ?>
                         </td>
-
                         <td>
                             <?php echo $DADOS[73]; ?>
                         </td>
@@ -528,6 +489,7 @@
                         <td>
                             <?php echo $DADOS[85]; ?>
                         </td>
+
                         <td>
                             <?php echo $DADOS[88]; ?>
                         </td>
@@ -545,7 +507,6 @@
                         <td>
                             <?php echo $DADOS[100]; ?>
                         </td>
-
                         <td>
                             <?php echo $DADOS[103]; ?>
                         </td>
@@ -580,7 +541,6 @@
                         <td>
                             <?php echo $DADOS[130]; ?>
                         </td>
-
                         <td>
                             <?php echo $DADOS[133]; ?>
                         </td>
@@ -615,7 +575,6 @@
                         <td>
                             <?php echo $DADOS[160]; ?>
                         </td>
-
                         <td>
                             <?php echo $DADOS[163]; ?>
                         </td>
@@ -664,7 +623,7 @@
                         <td>
                             <?php echo $DADOS[202]; ?>
                         </td>
-
+                        
                         <td>
                             <?php echo $row['dmy_server']; ?>
                         </td>

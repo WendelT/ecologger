@@ -1,93 +1,224 @@
 <!DOCTYPE html>
-<div id="app">
-<html lang="en">
-   
-    <title>ECO - Soluções</title>
-<head>
-    <meta charset="utf-8">
-    <h1>
-        ECO - Soluções em Energia
-    </h1>
+<html>
+  <head>
+<link rel="stylesheet" type="text/css" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="graph_final/js/chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="#"><h1 class="cabeca">Sistema de Gerenciamento</h1></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/"><button class="cabecab"><h5>Home</h5></button></a>
+      </li>
+      <li class="nav-item active dropdown">
+        <a class="nav-link" id="linkClientes" role="button" data-toggle="dropdown" href="#"><button class="cabecab"><h5>Clientes</h5></button></a>
+        <div class="dropdown-menu" aria-labelledby="linkClientes">
+          <a class="dropdown-item" href="https://ecoenergia.eng.br/quem-somos/nossos-clientes/">Lista de clientes</a>
+          <a class="dropdown-item" href="/cliente/novo">Cadastro (em construção)</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://ecoenergia.eng.br/quem-somos/a-eco/"><button class="cabecab"><h5>Sobre</h5></button></a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      <a href="https://www.ufc.br">
+      <img src="ufcB.png" alt="Brasão da Universidade Federal do Ceará" width="150" height="99" >
+    </a>
+
+      <a href="https://ecoenergia.eng.br">
+      <img src="ImagEco.png" alt="Logo da Eco Soluções" width="150"
+          height="99">
+        </a>
+    </span>
+  </div>
+</nav>
+</header>
 </head>
 
+
 <body>
-    <div class="content">
-    <div class="buttons">
-        <button>Dado 1</button>
-        <button>Dado 2</button>
-        <button>Dado 3</button>
-        <button>Dado 4</button>
-        <br>
-        <br>
-        <button  onclick="window.location.href = 'read_loop.php'">Histórico</button>
+<div class="container">
+
+  <main role="main">
+    <div class="options">
+    <h2>Opções</h2>
+    <div class="card border">
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+           
+            <a class="btn btn-success" href="" style="margin-top:10px;">Dados 1 (A definir)</a>
+          </li>
+          <li class="list-group-item">
+            <a class="btn btn-success" href="" style="margin-top:10px;">Dados 2 (A definir)</a>
+          </li>
+          <li class="list-group-item">
+            <a class="btn btn-success" href="" style="margin-top:10px;">Dados 3 (A definir)</a>
+          </li>
+
+          <li class="list-group-item">
+            <a class="btn btn-warning" href="http://ecologger.eng.br/read_loop.php" style="margin-top:10px;">Histórico em Tabela</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+</main>
 
-    <div class="grafic">
-        <p> Gráfico aqui dentro aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa </p>
-
+  <div class="grafico">
+    <h2>Gráfico</h2>
+    <form name="myForm" method="post" onsubmit="return savedata()">
+      <input type="text" name="nome" id="url1" placeholder="Id Cliente"/>
+      <input type="date" name="data_inicial" id="dt1" placeholder="Start Date"/>
+      <input type="date" name="data_final" id="dt2" placeholder="Final Date"/>
+      <input type="submit" id="update" class="btn-warning" name="submit" value="Modificar" />
+  </form>
+    <div class="card border graph_final">
+      <div id="chart-container">
+        <canvas id="graphteste"></canvas>
     </div>
+<script>
+    
+    function savedata() { 
+        var data = document.getElementById("dt1");
+        var data2 = document.getElementById("dt2");
+        var input = document.getElementById("url1");
+        
+        console.log( document.getElementById("dt1").value);
+        console.log( document.getElementById("dt2").value);
+        sessionStorage.setItem("url1", input.value);
+        sessionStorage.setItem("dt1", data.value);
+        sessionStorage.setItem("dt2", data2.value);
+        return true;
+    }
+    let url1 = "http://ecologger.eng.br/graph_final/data.php?nome=" + sessionStorage.getItem("url1") + "&data_inicial=" + sessionStorage.getItem("dt1") + "&data_final=" + sessionStorage.getItem("dt2");
+    //let url1 = "http://ecologger.eng.br/new_filter/data.php?nome=cliente";
+    console.log( url1.value);
+     $(document).ready(function () {
+            createGraph();
+        });
+        
+        function createGraph()
+        {
+            {
+                
+                $.get(url1,
+                function (data)
+                {
+                    console.log(data);
+                    var id = [];
+                    var ener = [];
 
+                    for (var i in data) {
+                        id.push(data[i].DATE);
+                        ener.push(data[i].totalEner);
+                    }
+                    var dados = {
+                        labels: id,
+                        datasets: [
+                            {
+                                label: 'Energia',
+                                backgroundColor: '#3DDC97',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: ener
+                            }
+                        ]
+                    };
+
+                    var gTarget = $("#graphteste");
+                    var barGraph = new Chart(gTarget, {
+                        type: 'bar',
+                        data: dados
+                    });
+                });
+            }
+        }
+</script>
+   
+
+      </div>
+    </div>
+  </div>
 </div>
-
 </body>
-
-
 </html>
-</div>
 
 <style>
-#app {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 1080px;
-    background-color: #354f52;
-    
+html {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
-h1 {
-    text-align: center;
-    color: white;
+.cabeca{
+  color: #26871c;
 }
 
-.content {
-    display: flex;
-    flex-direction: row;
-    margin-left: 5%;
+.cabecab {
+  background-color: #26871c;
+  color: white;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-radius: 10px;
 }
 
-.grafic {
-    display: flex;
-    margin-left: 10%;
-    width: 70%;
-    height: 40%;
-    background-color: #84a98c;
-    text-align: center;
-    padding-left: 10%;
-    border-radius: 10px;
-    
+body {
+  background-color: #26871c;
+}  
 
+h2 {
+  color: white;
+}
+.container {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: space-between;
+  margin-top:80px;
+ 
+    }
+#url1 {
+  border-radius: 5px;
 }
 
-.buttons {
-    display: flex;
-    flex-direction: column;
-    background-color: #52796f;
-    border-radius: 10px;
-    
+#dt1 {
+  border-radius: 5px;
 }
 
-button {
-    margin: 10px;
-    color: white;
-    background-color: #84a98c;
-    border-radius: 10px;
-    width: 300px;
-    height: 110px;
-    
-
-    
+#dt2 {
+  border-radius: 5px;
 }
+
+.btn-warning {
+  border-radius: 5px;
+}
+
+.options{
+margin-left: -250px;
+}
+
+.grafico {
+  margin-left: 30%;
+ width: 180%;
+ height: 100%;
+}
+
 
 
 </style>
