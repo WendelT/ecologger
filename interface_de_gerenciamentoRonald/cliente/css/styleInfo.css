@@ -1,0 +1,195 @@
+body {
+ 
+    background: #DFDFDF;
+  }
+  
+  
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #007B30;
+  }
+  
+  nav > a {
+    margin-left: 1%;
+    margin-right: 1%;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 32px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  nav ul li {
+    text-align: center;
+    width: 100%;
+  }
+  
+  nav ul li a {
+    display: inline-block;
+    padding: 10px 0;
+    width: 100%;
+    text-decoration: none;
+    color: #ffffff;
+  } 
+  
+  @font-face {
+    font-family: Poppins;
+    src: url('Poppins-Medium.ttf');
+  }
+
+  nav p {
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 4.3%;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 30px;
+  }
+
+  #mais, #maisT, #maisM, #maisA{
+    display: none;
+  }
+
+  #esconde, #escondeT, #escondeM, #escondeA{
+    display: inline;
+  }
+  
+  .inversores, .tarifas, .medidores, .alarmes  {
+      width: 100%;
+      max-height: 100%;
+      margin-top: 3%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+
+ .botaoArea {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self:center;
+    justify-content: center;
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    cursor: pointer;
+ }
+
+ .setor1{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   margin-top: 1%;
+ }
+
+  .tituloBtn {
+      
+      text-align: left;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 36px;
+      color: #000000;
+      margin-left: 3%;
+
+  }
+
+  #arrow , #arrowT, #arrowM, #arrowA{
+    padding-right: 1.5%;
+    padding-top: 0.5%;
+  }
+
+
+
+
+  .tabela {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .divisoria1{
+    border: 1px solid #DCDCDC;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .divisoria2{
+    border-top: 1px solid #007B30;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 95%;
+    margin-left: 2%;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #007B30;
+  }
+
+  .corpo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 95%;
+    margin-left: 2%;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: #000000;
+  }
+
+  
+  
+  @media screen and (min-width: 768px) {
+    nav {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  
+    nav p{
+      font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-top: 10px;
+    }
+  
+    nav ul {
+      flex-direction: row;
+      width: 12%;
+      margin-top: 10px;
+    }
+
+  }
+  

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/chart.min.js"></script>
+    <title>Document</title>
+    <style>
+        .myChartDiv {
+            max-width: 600px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+  <h1>teste</h1>
+    <div class="myChartDiv">
+        <canvas id="myChart" width="600" height="400"></canvas>
+      </div>
+      <select id="changeToLine" onchange="checkOption()">
+        <option id="barGraph" value="bar">Barra</option>
+        <option id="lineGraph" value="line">Linha</option>
+      </select>
+     <!--<button id="changeToLine">Change to Line Chart</button>--> 
+    <script>
+        var chartData = {
+            labels: ["10:00", "10:05", "10:10", "10:15", "10:20", "10:25"],
+            datasets: [{
+              label: '# of Votes',
+              position:'bottom',
+              data: [12, 19, 3, 5, 2, 3]
+            }]
+          };
+          var ctx = document.getElementById("myChart");
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+              title:{
+                            display: true,
+                            text:'Variavel x Tempo'
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+          
+          /*document.getElementById('changeToLine').onclick = function() {
+            myChart.destroy();
+            myChart = new Chart(ctx, {
+              type: 'line',
+              data: chartData
+            });
+          };*/
+          $(document).ready(function(){
+                $('#changeToLine').change(function () {
+                    var job =  $('#changeToLine').val();
+                    //alert(job);
+                    if(job=="line"){
+                        myChart.destroy();
+                        myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: chartData
+                        });
+                    }
+                    else{
+                        myChart.destroy();
+                        myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: chartData
+                        });
+                    }
+                })
+            });
+          
+    </script>
+    
+</body>
+</html>

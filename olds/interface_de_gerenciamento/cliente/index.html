@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <link rel="stylesheet" type="text/css" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="js/chart.min.js"></script>
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/dadosConsulta.js"></script>
+        <script type="text/javascript" src="js/dadosGraficos.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>   
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <meta http-equiv="refresh" content="300">
+        <title>Visão Geral Cliente</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/menuStyle.css" content="width=device-width,initial-scale=1.0">
+    </head>
+        <input type="checkbox" id="check">
+        <label for="check">
+            <i class ="material-icons" id="btn">menu</i>
+            <i class ="material-icons" id="cancel">close<p>fechar</p></i>
+        </label>
+        <div class="sidebar">
+            <header>Meu Menu</header>
+            <a href="#" class="active">
+                <i class ="material-icons">home</i>
+                <span>Início</span>
+            </a>
+            <a href="#">
+                <i class ="material-icons">show_chart</i>
+                <span>Gráfico</span>
+            </a>
+            <a href="#">
+                <i class ="material-icons">settings</i>
+                <span>Configurações</span>
+            </a>
+            
+        </div>
+    <body>
+        <nav>
+            <p>Interface Web de Gerenciamento</p>
+            <!-- <ul>
+                
+                <li>
+                    <a href="#dados">Dados</a>
+                </li>
+                <li>
+                    <a href="#grafico">Gráfico</a>
+                </li>
+
+                <li>
+                    <a href="http://ecologger.eng.br/read_loop.php">Histórico em Tabela</a>
+                </li>
+               
+            </ul> -->
+        </nav>
+
+        <header id="topo">
+            <h1>Ecologger</h1>
+            <p>Módulo de Gerenciamento</p>
+        </header>
+
+
+        <section id="dados">
+            <h2>Dados</h2>
+            <div>
+                <img src="img/unidadeconsumidora.png" alt="Unidades Instaladas" width="46" height="46">
+                <h3>Nome da Unidade</h3>
+                <p>(retornar nome da unidade aqui)</p>
+            </div>
+
+            <div>
+                <img src="img/energiatotal.png" alt="Energia Total" width="50" height="50">
+                <h3>Energia Gerada</h3>
+               <p id="wca"></p><p>(kWh)</p>
+                
+                <!-- depois destrocar potencia wca com energia-->
+            </div>
+
+            <div>
+                <img src="img/potenciaca.png" alt="Potencia Instantanea ou Ativa" width="50" height="50">
+                <h3>Potência Gerada</h3>
+                <p id="ener"></p><p>(kW)</p>
+            </div>
+
+            <div>
+                <img src="img/potenciainstalada.png" alt="Potencia Instalada" width="50" height="50">
+                <h3>Potência Instalada</h3>
+                <p>(retornar a potência instalada aqui)</p>
+            </div>
+
+            
+            
+
+            <div>
+                <img src="img/aviso.png" alt="Alarmes" width="46" height="46">
+                <h3>Status da Unidade</h3>
+                <p>(retornar Status da Unidade)</span></p>
+            </div>
+
+
+        </section>
+
+        <footer>
+        </footer>
+    </body>
+</html>

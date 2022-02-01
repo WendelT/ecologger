@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/chart.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Teste de Gráfico</h1>
+    <h2>up_tese_graph_13</h2>
+    <div class="myChartDiv">
+      <canvas id="myChart" width="600" height="400"></canvas> 
+    </div>
+    <form name="myForm" method="post" onsubmit="return savedata()">
+        <input type="text" name="nome" id="cl" placeholder="Id Cliente"/>
+        <select id="changeToLine" onchange="lineCheck(this);" >
+            <option id="barGraph" value="bar">Energia</option>
+            <option id="lineGraph" value="line">Tensão de fase A</option>
+        </select>
+        <input type="date" name="data_inicial" id="dt1" placeholder="Start Date"/>
+        <input type="date" name="data_final" id="dt2" placeholder="Final Date"/>
+        <div id="ifLine" style="display: none">
+          <label for="time1">Start Time: </label> <input type="time" name="time1" id="tm1" onsubmit="return savedata()" step="1"/>
+          <label for="time2">Finish Time: </label> <input type="time" name="time2" id="tm2" onsubmit="return savedata()" step="1"/>
+        </div>
+        <input type="submit" id="update" name="submit" value="Modificar" />
+        
+    </form>
+    <p>Tipo :  <span id="ener"></span></p>
+
+    <script>
+      function lineCheck(that) {
+        if (that.value == "line") {
+          //alert("check");
+          document.getElementById("ifLine").style.display = "block";
+        } else {
+          document.getElementById("ifLine").style.display = "none";
+        }
+      }
+      function savedata() { 
+        var data = document.getElementById("dt1");
+        var data2 = document.getElementById("dt2");
+        var time1 = document.getElementById("tm1");
+        var time2 = document.getElementById("tm2");
+        var client = document.getElementById("cl");
+        var type = document.getElementById("changeToLine");
+        
+        console.log( document.getElementById("dt1").value);
+        console.log( document.getElementById("dt2").value);
+        console.log( document.getElementById("tm1").value);
+        console.log( document.getElementById("tm2").value);
+        sessionStorage.setItem("cl", client.value);
+        sessionStorage.setItem("dt1", data.value);
+        sessionStorage.setItem("dt2", data2.value);
+        sessionStorage.setItem("tm1", time1.value);
+        sessionStorage.setItem("tm2", time2.value);
+        sessionStorage.setItem("changeToLine", type.value);
+
+        
+        return true;
+      }
+      var th = sessionStorage.getItem("changeToLine");
+      console.log(th);
+      console.log(tm2.value);
+    
+      document.getElementById("ener").innerHTML = th;
+      
+      let url1 = "http://ecologger.eng.br/graph_line/data.php?nome=" + sessionStorage.getItem("cl") + "&data_inicial=" + sessionStorage.getItem("dt1") + "&time1=" + sessionStorage.getItem("tm1") + "&time2=" + sessionStorage.getItem("tm2")+"&";
+    //let url1 = "http://ecologger.eng.br/graph_line/data.php?nome=lorena&data_inicial=2021-07-27&data_final=2021-07-28&time1=02:00:00&time2=05:00:45";
+      console.log( url1.value);
+      $(document).ready(function () {
+            createGraph();
+      });
+        
+      function createGraph()
+          {
+            {
+              $.get(url1,
+                function (data)
+                {
+                  
+                    
+                  
+                  console.log(data);
+                  var id = [];
+                  var ener = [];
+
+                  for (var i in data) {
+                   // var x = 'DATE';
+                    
+                      id.push(data[i].time);
+                      ener.push(data[i].totalEner);
+                    
+                    
+                  }
+                  var dados = {
+                    labels: id,
+                    datasets: [
+                      {
+                        label: 'Energia',
+                        backgroundColor: '#3DDC97',
+                        borderColor: '#46d5f1',
+                        hoverBackgroundColor: '#CCCCCC',
+                        hoverBorderColor: '#666666',
+                        data: ener
+                      }
+                    ]
+                  };
+
+                  var gTarget = $("#myChart");
+                  var myChart = new Chart(gTarget, {
+                      type: 'bar',
+                      data: dados
+                  });
+                  if(th=="line"){
+                    myChart.destroy();
+                    myChart = new Chart(gTarget, {
+                    type: 'line',
+                    data: dados
+                    });
+                  }
+                  else{
+                    myChart.destroy();
+                    myChart = new Chart(gTarget, {
+                      type: 'bar',
+                      data: dados
+                    });
+                  }
+                });
+              } 
+                   
+            }
+        
+          
+          
+          /*document.getElementById('changeToLine').onclick = function() {
+            myChart.destroy();
+            myChart = new Chart(ctx, {
+              type: 'line',
+              data: chartData
+            });
+          };*/
+          
+
+          
+   /*$(document).ready(function(){
+                $('#changeToLine').change(function () {
+                    var job =  $('#changeToLine').val();
+                    //alert(job);
+                    if(job=="line"){
+                        myChart.destroy();
+                        myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: chartData
+                        });
+                    }
+                    else{
+                        myChart.destroy();
+                        myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: chartData
+                        });
+                    }
+                })
+            });*/
+            
+    </script>
+</body>
+</html>

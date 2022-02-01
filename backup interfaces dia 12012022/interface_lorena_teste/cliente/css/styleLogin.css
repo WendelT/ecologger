@@ -1,0 +1,162 @@
+body {
+  background: #dfdfdf;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+}
+
+.mainblock {
+  width: 20%;
+  height: 58%;
+  margin-top: 9%;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.logo {
+  width: 70%;
+  display: flex;
+  margin-top: 0%;
+  margin-left: 15%;
+  margin-top: 4%;
+  margin-bottom: 8%;
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url('Poppins-Medium.ttf');
+}
+
+div p {
+  font-family: Poppins;
+  font-size: 98%;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-bottom: 8%;
+}
+
+.formLogin{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.field{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.control{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 40px;
+  width: 82%;
+  margin-left: 6%;
+  border-radius: 20px;
+  background: #ededed;
+  margin-bottom: 4%;
+  padding-left: 5%;
+}
+
+#senhaImg, #userImg {
+  width: 14px;
+  height: 14px;
+  margin-top: 13px;
+  margin-right: 4px;
+}
+
+#teste {
+  width: 16px;
+  height: 15px;
+  margin-top: 13px;
+  margin-right: 10px;
+  border-left: 4px;
+  border-color: blue;
+}
+
+input {
+  background: #ededed;
+  border: none;
+  outline: none;
+  flex: 1;
+  color: #007b30;
+  font-family: Poppins;
+  font-size: 98%;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  border-radius: 20px;
+}
+
+.forgetpassword {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 88%;
+  line-height: 21px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #007b30;
+  margin-top: -2%;
+}
+
+button {
+  height: 40px;
+  width: 86%;
+  margin-left: 6%;
+  border-radius: 20px;
+  background: #007b30;
+  border: none;
+  margin-bottom: 4%;
+  display: flex;
+  justify-content: center;
+}
+
+button p {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 130%;
+  margin-top: 2.5%;
+  line-height: 27px;
+  text-align: center;
+  color: #ffffff;
+}
+
+footer div {
+  width: 100%;
+  margin-top: 10%;
+  border: 1px solid #007b30;
+}
+
+footer img {
+  width: 87px;
+  height: 53px;
+  left: 526px;
+  top: 640px;
+}
+
+@media (max-width: 860px) {
+  .mainblock {
+    width: 80%;
+    margin-top: 9%;
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}

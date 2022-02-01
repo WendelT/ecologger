@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>EcoLogger Interface de Gerenciamento Web</title>
+    </head>
+    <body>
+        <nav>
+            <a href="#">Interface Web de Gerenciamento</a>
+            <ul>
+                
+                <li>
+                    <a href="#dados">Dados</a>
+                </li>
+                <li>
+                    <a href="#grafico">Gráfico</a>
+                </li>
+               
+            </ul>
+        </nav>
+
+        <header id="topo">
+            <h1>Ecologger</h1>
+            <p>Módulo de Gerenciamento</p>
+        </header>
+
+
+        <section id="dados">
+            
+            <h2>Dados</h2>
+            <div>
+                <img src="img/home.svg" alt="Unidades Instaladas" width="46" height="46">
+                <h3>Unidades Instaladas</h3>
+                <p id="numeroUnidades"></p>
+            </div>
+
+            <div>
+                <img src="img/monitor.svg" alt="Potencia Instalada" width="46" height="46">
+                <h3>Potência Instalada</h3>
+                <p id="potInstalada"></p>
+            </div>
+
+            <div>
+                <img src="img/medidor.svg" alt="Potencia Instantanea" width="46" height="46">
+                <h3>Potência Instantânea</h3>
+                <p id="potInstantanea"></p>
+            </div>
+
+            <div>
+                <img src="img/energia.svg" alt="Energia Total" width="46" height="46">
+                <h3>Energia Total</h3>
+                <p id="enerTotal"></p>
+            </div>
+            <script>
+            let nUnites = 0;
+            let pInstalada = 0;
+            let pInstantanea = 0;
+            let eTotal = 0;
+
+            /*document.getElementById("numeroUnidades").innerHTML = nUnites;
+            document.getElementById("potInstalada").innerHTML = pInstalada;
+            document.getElementById("potInstantanea").innerHTML = pInstantanea;
+            document.getElementById("enerTotal").innerHTML = eTotal;
+            */
+            console.log(nUnites);    
+
+            function consult(funcao ,variavel, idAlteracaoHTML){
+                console.log("primeira entrada");
+                console.log(variavel + " aousdoia");
+                jQuery.ajax
+                ({
+                    type: "POST",
+                    url: 'consultahead.php',
+                    dataType: 'json',
+                    data: {functionname: funcao},
+                    success: function (obj, textstatus) {
+                                if( !('error' in obj) ) {
+                                    variavel = obj.result;
+                                    document.getElementById(idAlteracaoHTML).innerHTML = variavel;
+                                    return;
+                                }
+                            }
+                });
+            }
+            function consultListaClientes(funcao, variavel){
+                jQuery.ajax
+                ({
+                    type: "POST",
+                    url: 'consultahead.php',
+                    dataType: 'json',
+                    data: {functionname: funcao},
+                    success: function (obj, textstatus) 
+                    {
+                        if( !('error' in obj) ) {
+                            console.log(obj.result);
+                            var newOptions = obj.result;
+                            var newValue = obj.result;
+                            selectField = document.getElementById("url1");
+                            selectField.options.length = 0;
+                            for(i=0; i<obj.result.length; i++)
+                            {
+                                selectField.options[selectField.length] = new Option(newOptions[i]['clientsName'], newValue[i]['clientsName']);
+                            }
+                            this.variavel = obj.result;
+                            return obj.result;
+                        }
+                    }
+                });
+            }
+            consult('countUnidades',nUnites,"numeroUnidades");
+            consultListaClientes('listUnidades',this.listaClientes);
+
+            document.getElementById("numeroUnidades").innerHTML = nUnites;
+            document.getElementById("potInstalada").innerHTML = pInstalada;
+            document.getElementById("potInstantanea").innerHTML = pInstantanea;
+            document.getElementById("enerTotal").innerHTML = eTotal;
+            </script>
+
+        </section>
+
+        <section id="grafico">
+            <h2>Gráfico</h2>
+            <div class="cgrafico">
+            <form name="myForm" method="post" onsubmit="return savedata()">
+                <select style="width:auto" name="nome" id="url1">
+                    <option value="Selecione um Cliente"></option>
+                </select>
+                <!-- <input type="text" name="nome" id="url1" placeholder="Id Cliente"/> -->
+                <input type="date" name="data_inicial" id="dt1" placeholder="Start Date"/>
+                <input type="date" name="data_final" id="dt2" placeholder="Final Date"/>
+                <input type="submit" id="update" class="btn-warning" name="submit" value="Modificar" />
+            </form>
+              <div class="card border graph_final">
+                <div id="chart-container">
+                  <canvas id="graphteste"></canvas>
+              </div>
+          <script>
+                
+              function savedata() 
+              { 
+                  var data = document.getElementById("dt1");
+                  var data2 = document.getElementById("dt2");
+                  var input = document.getElementById("url1");
+                  
+                  console.log( document.getElementById("dt1").value);
+                  console.log( document.getElementById("dt2").value);
+                  sessionStorage.setItem("url1", input.value);
+                  sessionStorage.setItem("dt1", data.value);
+                  sessionStorage.setItem("dt2", data2.value);
+                  return true;
+              }
+              let url1 = "http://ecologger.eng.br/new_portal_test/data.php?nome=" + sessionStorage.getItem("url1") + "&data_inicial=" + sessionStorage.getItem("dt1") + "&data_final=" + sessionStorage.getItem("dt2");
+              //let url1 = "http://ecologger.eng.br/new_filter/data.php?nome=cliente";
+              console.log( url1.value);
+               $(document).ready(function () {
+                      createGraph();
+                  });
+                  
+                  function createGraph()
+                  {
+                      {
+                          
+                          $.get(url1,
+                          function (data)
+                          {
+                              var id = [];
+                              var ener = [];
+          
+                              for (var i in data) {
+                                  id.push(data[i].DATE);
+                                  ener.push(data[i].totalEner);
+                              }
+                              var dados = {
+                                  labels: id,
+                                  datasets: [
+                                      {
+                                          label: 'Energia',
+                                          backgroundColor: '#3DDC97',
+                                          borderColor: '#46d5f1',
+                                          hoverBackgroundColor: '#CCCCCC',
+                                          hoverBorderColor: '#666666',
+                                          data: ener,
+                                          fill: true,
+                                          tension: 0.1
+                                      }
+                                  ]
+                              };
+          
+                              var gTarget = $("#graphteste");
+                              var barGraph = new Chart(gTarget, {
+                                  type: 'line',
+                                  data: dados
+                              });
+                          });
+                      }
+                  }
+          </script>
+          </div>
+          
+        </section>
+        <section id="teste">
+            <div>
+                <select style="width:auto" name="Clientes" id="Clientes">
+                    <option value="Selecione um Cliente"></option>
+                </select>
+            </div>
+        </section>
+        <footer>
+            <a href="#topo">VOLTAR</a>
+        </footer>
+
+    </body>
+</html>

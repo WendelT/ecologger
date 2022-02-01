@@ -7,17 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="js/chart.min.js"></script>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>   
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <meta http-equiv="refresh" content="21">
+        <meta http-equiv="refresh" content="300">
         <title>EcoLogger Interface de Gerenciamento Web</title>
 
 
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --> 
 <script>
-    
+    let nUnites = 0;
+    let pInstalada = 0;
+    let pInstantanea = 0;
+    let eTotal = 0;
     let url1 = "http://ecologger.eng.br/fetch_data_test/data_array.php";
     //let url1 = "http://ecologger.eng.br/new_filter/data.php?nome=cliente";
      
@@ -36,7 +40,7 @@
                     var wca = [];
                     var ener = [];
                     //var nps = [];
-                    var pvar = [];
+                    //var pvar = [];
                     var wcc = [];
                     var wrn1 = [];
                     //var wrn2 = [];
@@ -58,7 +62,7 @@
                        // console.log(ener);
                         wca.push(data[i].wca);
                         //nps.push(data[i].nps);
-                        pvar.push(data[i].pvar);
+                        //pvar.push(data[i].pvar);
                         wcc.push(data[i].wcc);
                         wrn1.push(data[i].wrn1);
                         //wrn2.push(data[i].wrn2);
@@ -80,7 +84,7 @@
                     document.getElementById("ener").innerHTML = ener.join("");
                     document.getElementById("wca").innerHTML = wca.join("");
                     //document.getElementById("nps").innerHTML = nps.join("");
-                    document.getElementById("pvar").innerHTML = pvar.join("");
+                    //document.getElementById("pvar").innerHTML = pvar.join("");
                     document.getElementById("wcc").innerHTML = wcc.join("");
                     document.getElementById("wrn1").innerHTML = wrn1.join("");
                     //document.getElementById("wrn2").innerHTML = wrn2.join("");
@@ -102,10 +106,64 @@
                 });
             
         }
+
+
+        function consult(funcao ,variavel, idAlteracaoHTML){
+                console.log("primeira entrada");
+                console.log(variavel + " aousdoia");
+                jQuery.ajax
+                ({
+                    type: "POST",
+                    url: 'consultahead.php',
+                    dataType: 'json',
+                    data: {functionname: funcao},
+                    success: function (obj, textstatus) {
+                                if( !('error' in obj) ) {
+                                    variavel = obj.result;
+                                    document.getElementById(idAlteracaoHTML).innerHTML = variavel;
+                                    return;
+                                }
+                            }
+                });
+            }
+            function consultListaClientes(funcao, variavel){
+                jQuery.ajax
+                ({
+                    type: "POST",
+                    url: 'consultahead.php',
+                    dataType: 'json',
+                    data: {functionname: funcao},
+                    success: function (obj, textstatus) 
+                    {
+                        if( !('error' in obj) ) {
+                            console.log(obj.result);
+                            var newOptions = obj.result;
+                            var newValue = obj.result;
+                            selectField = document.getElementById("url1");
+                            selectField.options.length = 0;
+                            for(i=0; i<obj.result.length; i++)
+                            {
+                                selectField.options[selectField.length] = new Option(newOptions[i]['clientsName'], newValue[i]['clientsName']);
+                            }
+                            this.variavel = obj.result;
+                            return obj.result;
+                        }
+                    }
+                });
+            }
+            consult('countUnidades',nUnites,"numeroUnidades");
+            consultListaClientes('listUnidades',this.listaClientes);
+
+            document.getElementById("numeroUnidades").innerHTML = nUnites;
+            document.getElementById("potInstalada").innerHTML = pInstalada;
+            document.getElementById("potInstantanea").innerHTML = pInstantanea;
+            document.getElementById("enerTotal").innerHTML = eTotal;
+
+
     
 </script>
 
-
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --> 
 
 
 
@@ -138,49 +196,44 @@
         <section id="dados">
             <h2>Dados</h2>
             <div>
-                <img src="img/home.svg" alt="Unidades Instaladas" width="46" height="46">
+                <img src="img/unidadeconsumidora.png" alt="Unidades Instaladas" width="46" height="46">
                 <h3>Unidades Instaladas</h3>
-                <p>Função a fazer</p>
+                <p>1</p>
             </div>
 
             <div>
-                <img src="img/monitor.svg" alt="Potencia Instalada" width="46" height="46">
+                <img src="img/potenciainstalada.png" alt="Potencia Instalada" width="50" height="50">
                 <h3>Potência Instalada</h3>
-                <p>Função a fazer</p>
+                <p>15,4 kWp</p>
             </div>
 
             <div>
-                <img src="img/medidor.svg" alt="Potencia Instantanea" width="46" height="46">
-                <h3>Potência Ativa</h3>
-                <p><span id="wca"></span> KW</p>
-            </div>
-
-            <div>
-                <img src="img/energia.svg" alt="Energia Total" width="46" height="46">
+                <img src="img/energiatotal.png" alt="Energia Total" width="50" height="50">
                 <h3>Energia Gerada</h3>
-                <p><span id="ener"></span> KWH</p>
+                <p><span id="wca"></span> kWh</p>
+                <!-- depois destrocar potencia wca com energia-->
             </div>
 
             <div>
-                <img src="img/ImagEco.png" alt="Potencia Reativa" width="46" height="46">
-                <h3>Potência Reativa</h3>
-                <p><span id="pvar"></span> KVA</p>
+                <img src="img/potenciaca.png" alt="Potencia Instantanea" width="50" height="50">
+                <h3>Potência Ativa</h3>
+                <p><span id="ener"></span> kW</p>
             </div>
 
             <div>
-                <img src="img/ImagEco.png" alt="Alarmes" width="46" height="46">
+                <img src="img/aviso.png" alt="Alarmes" width="46" height="46">
                 <h3>Avisos (Alarmes/Faltas)</h3>
                 <p><span id="wrn1"></span></p>
             </div>
 
             <div>
-                <img src="img/ImagEco.png" alt="Potencia CC" width="46" height="46">
-                <h3>Potência Corrente Contínua</h3>
-                <p><span id="wcc"></span> KW</p>
+                <img src="img/potenciaca.png" alt="Potencia CC" width="50" height="50">
+                <h3>Potência CC</h3>
+                <p><span id="wcc"></span> kW</p>
             </div>
 
             <div>
-                <img src="img/ImagEco.png" alt="Temperatura do Inversor" width="46" height="46">
+                <img src="img/temperatura.png" alt="Temperatura do Inversor" width="46" height="46">
                 <h3>Temperatura do Inversor</h3>
                 <p><span id="temp"></span> °C</p>
             </div>
@@ -191,7 +244,10 @@
             <h2>Gráfico</h2>
             <div class="cgrafico">
             <form name="myForm" method="post" onsubmit="return savedata()">
-                <input type="text" name="nome" id="url1" placeholder="Id Cliente"/>
+                <select style="width:auto" name="nome" id="url1">
+                    <option value="Selecione um Cliente"></option>
+                    </select>
+                <!-- <input type="text" name="nome" id="url1" placeholder="Id Cliente"/> -->
                 <input type="date" name="data_inicial" id="dt1" placeholder="Start Date"/>
                 <input type="date" name="data_final" id="dt2" placeholder="Final Date"/>
                 <input type="submit" id="update" class="btn-warning" name="submit" value="Modificar" />
@@ -245,14 +301,16 @@
                                           borderColor: '#46d5f1',
                                           hoverBackgroundColor: '#CCCCCC',
                                           hoverBorderColor: '#666666',
-                                          data: ener
+                                          data: ener,
+                                          fill: true,
+                                          tension: 0.1
                                       }
                                   ]
                               };
           
                               var gTarget = $("#graphteste");
                               var barGraph = new Chart(gTarget, {
-                                  type: 'bar',
+                                  type: 'line',
                                   data: dados
                               });
                           });
@@ -260,8 +318,8 @@
                   }
           </script>
           </div>
+            </div>
         </section>
-
         <footer>
             <a href="#topo">VOLTAR</a>
         </footer>
